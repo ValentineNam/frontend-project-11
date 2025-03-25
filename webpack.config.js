@@ -7,7 +7,7 @@ const devtool = devMode ? 'source-map' : undefined;
 
 // const autoprefixer = require('autoprefixer')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-// const miniCssExtractPlugin = require('mini-css-extract-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
   mode,
@@ -27,41 +27,25 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'index.html'),
+      template: path.resolve(__dirname, 'src', 'index.html'),
     }),
-    // new miniCssExtractPlugin()
+    new MiniCssExtractPlugin({
+      filename: '[name].[contenthash].css',
+    })
   ],
   module: {
     rules: [
       {
         test: /\.html$/i,
-        loader: 'postcss-loader',
-        // test: /\.(scss)$/,
-        //       use: [
-        //         {
-        //           // Extracts CSS for each JS file that includes CSS
-        //           loader: miniCssExtractPlugin.loader
-        //         },
-        //         {
-        //           // Interprets `@import` and `url()` like `import/require()` and will resolve them
-        //           loader: 'css-loader'
-        //         },
-        //         {
-        //           // Loader for webpack to process CSS with PostCSS
-        //           loader: 'postcss-loader',
-        //           options: {
-        //             postcssOptions: {
-        //               plugins: [
-        //                 autoprefixer
-        //               ]
-        //             }
-        //           }
-        //         },
-        //         {
-        //           // Loads a SASS/SCSS file and compiles it to CSS
-        //           loader: 'sass-loader'
-        //         }
-        //       ]
+        loader: 'html-loader',
+      },
+      {
+        test:  /\.(sc|c|sa)ss$/,
+        use: [
+          devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+          'css-loader',
+          'sass-loader',
+        ]
       },
     ],
   },

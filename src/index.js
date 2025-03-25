@@ -1,4 +1,5 @@
-import './styles.scss';
-import 'bootstrap';
+import './index.scss';
+import './index.html';
+// import 'bootstrap';
 
 console.log('Started!');
