@@ -1,7 +1,7 @@
-// @import "~bootstrap";
+@import "~bootstrap";
 
 $t-muted: #6c757d;
 
 .text-muted {
-  color: $t-muted;
+  color: $t-muted !important;
 }
